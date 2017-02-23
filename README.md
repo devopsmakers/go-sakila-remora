@@ -1,4 +1,4 @@
-# go-mysql-selfaware
+# go-mysql-remora
 A sidecar process written in Go to monitor MySQL slaves / masters for replication errors or lag.
 
 ## Welcome!
