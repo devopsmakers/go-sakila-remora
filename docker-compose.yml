@@ -1,0 +1,41 @@
+version: '2.1'
+
+networks:
+  percona_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24
+
+services:
+  percona_master:
+    image: percona:latest
+    container_name: percona_master
+    command: --innodb-buffer-pool-size=2G
+    ports:
+      - 3306:3306
+    environment:
+      # obviously, don't use this anywhere near production!
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - percona_net
+    volumes:
+      - ./percona/config/master:/etc/mysql/conf.d
+  percona_slave:
+    image: percona:latest
+    container_name: percona_slave
+    command: --innodb-buffer-pool-size=2G
+    ports:
+      - 3307:3306
+    environment:
+      # obviously, don't use this anywhere near production!
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - ./percona/config/slave:/etc/mysql/conf.d
+    networks:
+      - percona_net
+    links:
+      - percona_master
+    depends_on:
+      - percona_master
