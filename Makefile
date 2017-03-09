@@ -5,6 +5,9 @@ pkgs = $(shell glide novendor)
 cmd = go-sakila-remora
 
 TRAVIS_TAG ?= "0.0.0"
+BUILD_DIR=build
+COVERAGE_DIR=${BUILD_DIR}/coverage
+GODEP=$(GOPATH)/bin/godep
 
 # Build related tasks
 .PHONY: deps
@@ -14,7 +17,39 @@ deps:
 
 .PHONY: build
 build: deps
-	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o release/$(cmd) $(exe)
+	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o $(BUILD_DIR)/$(cmd) $(exe)
+
+.PHONY: clean
+clean:
+	rm -rfv ./$(BUILD_DIR)
+
+.PHONY: lint
+lint:
+	golint $(pkgs)
+
+# Test related tasks
+.PHONY: test
+test: prepare-tests unit-tests coverage-report
+
+.PHONY: prepare-tests
+prepare-tests:
+	mkdir -p ${COVERAGE_DIR}
+	# coverage tools
+	go get golang.org/x/tools/cmd/cover
+	# gotestcover is needed to fetch coverage for multiple packages
+	go get github.com/pierrre/gotestcover
+
+.PHONY: unit-tests
+unit-tests: prepare-tests
+	$(GOPATH)/bin/gotestcover -coverprofile=${COVERAGE_DIR}/unit.cov -short -covermode=atomic $(exe)/...
+
+.PHONY: coverage-report
+coverage-report:
+	# Writes atomic mode on top of file
+	echo 'mode: atomic' > ./${COVERAGE_DIR}/full.cov
+	# Collects all coverage files and skips top line with mode
+	tail -q -n +2 ./${COVERAGE_DIR}/*.cov >> ./${COVERAGE_DIR}/full.cov
+	go tool cover -html=./${COVERAGE_DIR}/full.cov -o ${COVERAGE_DIR}/full.html
 
 # Percona Server related tasks
 .PHONY: master
