@@ -6,6 +6,17 @@ cmd = go-sakila-remora
 
 TRAVIS_TAG ?= "0.0.0"
 
+# Build related tasks
+.PHONY: deps
+deps:
+	go get github.com/Masterminds/glide
+	glide install
+
+.PHONY: build
+build: deps
+	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o release/$(cmd) $(exe)
+
+# Percona Server related tasks
 .PHONY: master
 master:
 	docker-compose up -d percona_master
@@ -61,6 +72,3 @@ down:
 
 .PHONY: up
 up: down master slave
-
-.PHONY: build
-build: deps
