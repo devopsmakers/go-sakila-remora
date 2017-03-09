@@ -1,4 +1,8 @@
 # go-sakila-remora
+[![Build Status](https://travis-ci.org/devopsmakers/go-sakila-remora.svg?branch=master)](https://travis-ci.org/devopsmakers/go-sakila-remora)
+[![Go Report Card](https://goreportcard.com/badge/github.com/devopsmakers/go-sakila-remora)](https://goreportcard.com/report/github.com/devopsmakers/go-sakila-remora)
+[![codecov](https://codecov.io/gh/devopsmakers/go-sakila-remora/branch/master/graph/badge.svg)](https://codecov.io/gh/devopsmakers/go-sakila-remora)
+
 A sidecar process written in Go to monitor MySQL slaves / masters for replication errors or lag.
 
 ## Welcome!
