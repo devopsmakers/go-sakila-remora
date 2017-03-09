@@ -1,4 +1,4 @@
-![sakila-remora](https://cloud.githubusercontent.com/assets/1253072/23737561/9e9efd3e-04df-11e7-9f0e-5f7f63db580f.jpg)
+![sakila-remora](https://cloud.githubusercontent.com/assets/1253072/23737727/a1f993bc-04e0-11e7-9812-c581e8e61b2f.jpg)
 # go-sakila-remora
 [![Build Status](https://travis-ci.org/devopsmakers/go-sakila-remora.svg?branch=master)](https://travis-ci.org/devopsmakers/go-sakila-remora)
 [![Go Report Card](https://goreportcard.com/badge/github.com/devopsmakers/go-sakila-remora)](https://goreportcard.com/report/github.com/devopsmakers/go-sakila-remora)
