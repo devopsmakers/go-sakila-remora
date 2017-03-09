@@ -20,6 +20,10 @@ env:
     # Cross-compile for amd64 only to speed up testing.
     - GOX_FLAGS="-arch amd64"
 
+install:
+  - go get -u github.com/golang/lint/golint
+  - go get -u github.com/Masterminds/glide
+
 script:
   - make $TARGETS
 

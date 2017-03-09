@@ -12,7 +12,7 @@ GODEP=$(GOPATH)/bin/godep
 # Build related tasks
 .PHONY: deps
 deps:
-	go get github.com/Masterminds/glide
+	go get -u github.com/Masterminds/glide
 	glide install
 
 .PHONY: build
@@ -24,7 +24,7 @@ clean:
 	rm -rfv ./$(BUILD_DIR)
 
 .PHONY: lint
-lint:
+lint: prepare-tests
 	golint $(pkgs)
 
 # Test related tasks
@@ -34,10 +34,8 @@ test: prepare-tests unit-tests coverage-report
 .PHONY: prepare-tests
 prepare-tests:
 	mkdir -p ${COVERAGE_DIR}
-	# coverage tools
-	go get golang.org/x/tools/cmd/cover
-	# gotestcover is needed to fetch coverage for multiple packages
-	go get github.com/pierrre/gotestcover
+	go get -u golang.org/x/tools/cmd/cover
+	go get -u github.com/pierrre/gotestcover
 
 .PHONY: unit-tests
 unit-tests: prepare-tests
