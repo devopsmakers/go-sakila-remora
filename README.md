@@ -1,3 +1,4 @@
+![sakila-remora](https://cloud.githubusercontent.com/assets/1253072/23737561/9e9efd3e-04df-11e7-9f0e-5f7f63db580f.jpg)
 # go-sakila-remora
 [![Build Status](https://travis-ci.org/devopsmakers/go-sakila-remora.svg?branch=master)](https://travis-ci.org/devopsmakers/go-sakila-remora)
 [![Go Report Card](https://goreportcard.com/badge/github.com/devopsmakers/go-sakila-remora)](https://goreportcard.com/report/github.com/devopsmakers/go-sakila-remora)
@@ -6,14 +7,13 @@
 A sidecar process written in Go to monitor MySQL slaves / masters for replication errors or lag.
 
 ## Welcome!
-
 Hi! and thanks for stopping by this project in it's early days.
 
 Inspired by GitHub's interesting article:
 https://githubengineering.com/context-aware-mysql-pools-via-haproxy/
 
 It's similar to methods I've used previously to manage traffic being sent
-to Asterisk VoIP servers based on several key metrics.
+to Asterisk VoIP servers based on various metrics.
 
 ## Project goals
 
