@@ -2,6 +2,8 @@ package: github.com/devopsmakers/go-sakila-remora
 import:
 - package: github.com/spf13/jwalterweatherman
 - package: github.com/spf13/viper
+- package: github.com/patrickmn/go-cache
+- package: github.com/go-sql-driver/mysql
 testImport:
 - package: github.com/stretchr/testify
   subpackages:

@@ -1,8 +1,10 @@
-hash: 621a8b65584e87d8d86d6014d7ab075040cae58c690e22cab9e755da7962ea5e
-updated: 2017-03-09T14:26:06.26283608+10:00
+hash: 2bf0f624ef91df57ffcc6f28f095531bff42904f8fd1609216adae21030f4480
+updated: 2017-03-09T20:42:47.876245465+10:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: 7d7316ed6e1ed2de075aab8dfc76de5d158d66e1
+- name: github.com/go-sql-driver/mysql
+  version: 2e00b5cd70399450106cec6431c2e2ce3cae5034
 - name: github.com/hashicorp/hcl
   version: 630949a3c5fa3c613328e1b8256052cbc2327c9b
   subpackages:
@@ -18,6 +20,8 @@ imports:
   version: b3b15ef068fd0b17ddf408a23669f20811d194d2
 - name: github.com/mitchellh/mapstructure
   version: 53818660ed4955e899c0bcafa97299a388bd7c8e
+- name: github.com/patrickmn/go-cache
+  version: 1881a9bccb818787f68c52bfba648c6cf34c34fa
 - name: github.com/pelletier/go-buffruneio
   version: c37440a7cf42ac63b919c752ca73a85067e05992
 - name: github.com/pelletier/go-toml

@@ -1,10 +1,6 @@
 package remora
 
-import (
-	"fmt"
-
-	"github.com/spf13/viper"
-)
+import "github.com/spf13/viper"
 
 // Remora interface
 type Remora struct {
@@ -25,9 +21,6 @@ type Connection struct {
 	Host string
 	User string
 	Pass string
-}
-
-type status struct {
 }
 
 // LoadConfig inits the config file and reads the default config information
@@ -58,9 +51,4 @@ func (r *Remora) LoadConfig(configpaths []string) error {
 	}
 
 	return nil
-}
-
-// Run starts running checks and exposes the HTTP endpoint
-func (r *Remora) Run() {
-	fmt.Printf("%v\n", r.Config.MySQL.User)
 }

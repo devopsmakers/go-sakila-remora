@@ -10,14 +10,21 @@ COVERAGE_DIR=${BUILD_DIR}/coverage
 GODEP=$(GOPATH)/bin/godep
 
 # Build related tasks
+.PHONY: all
+all: clean deps build
+
 .PHONY: deps
 deps:
 	go get -u github.com/Masterminds/glide
 	glide install
 
 .PHONY: build
-build: deps
+build:
 	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o $(BUILD_DIR)/$(cmd) $(exe)
+
+.PHONY: run
+run: build
+	build/go-sakila-remora
 
 .PHONY: clean
 clean:

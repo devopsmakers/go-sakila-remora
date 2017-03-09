@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"runtime"
 
@@ -10,17 +9,18 @@ import (
 )
 
 func main() {
+	jww.SetStdoutThreshold(jww.LevelInfo)
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	var r remora.Remora
 
 	configpaths := []string{"/etc/remora/", "$HOME/.remora", ".", ".."}
-	err := r.LoadConfig(configpaths)
-	if err != nil {
-		fmt.Printf("%s", err)
-		os.Exit(1)
+	if err := r.LoadConfig(configpaths); err != nil {
+		jww.FATAL.Fatalln(err)
 	}
 
-	r.Run()
+	if err := r.Serve(); err != nil {
+		jww.FATAL.Fatalln(err)
+	}
 
 	if jww.LogCountForLevelsGreaterThanorEqualTo(jww.LevelError) > 0 {
 		os.Exit(-1)
