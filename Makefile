@@ -32,7 +32,7 @@ lint: prepare-tests
 test: prepare-tests unit-tests coverage-report
 
 .PHONY: prepare-tests
-prepare-tests:
+prepare-tests: deps
 	mkdir -p ${COVERAGE_DIR}
 	go get -u golang.org/x/tools/cmd/cover
 	go get -u github.com/pierrre/gotestcover
