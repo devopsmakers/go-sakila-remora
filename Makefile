@@ -1,3 +1,11 @@
+export GO15VENDOREXPERIMENT=1
+
+exe = github.com/devopsmakers/go-sakila-remora
+pkgs = $(shell glide novendor)
+cmd = go-sakila-remora
+
+TRAVIS_TAG ?= "0.0.0"
+
 .PHONY: master
 master:
 	docker-compose up -d percona_master
@@ -53,3 +61,6 @@ down:
 
 .PHONY: up
 up: down master slave
+
+.PHONY: build
+build: deps
