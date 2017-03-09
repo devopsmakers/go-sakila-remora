@@ -11,7 +11,10 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	var r remora.Remora
-	r.LoadConfig()
+
+	configpaths := []string{"/etc/remora/", "$HOME/.remora", "."}
+	r.LoadConfig(configpaths)
+
 	r.Run()
 
 	if jww.LogCountForLevelsGreaterThanorEqualTo(jww.LevelError) > 0 {

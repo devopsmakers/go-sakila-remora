@@ -32,14 +32,16 @@ type status struct {
 }
 
 // LoadConfig inits the config file and reads the default config information
-// into Remora.Config. It exists the processes in case of errors.
-func (r *Remora) LoadConfig() {
+// into Remora.Config. For testability it accepts an array containing dirs to
+// search for a config file.
+func (r *Remora) LoadConfig(configpaths []string) {
 
 	viper.SetConfigName("config")
-	viper.AddConfigPath("/etc/remora/")
-	viper.AddConfigPath("$HOME/.remora")
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("../")
+
+	for _, configpath := range configpaths {
+		viper.AddConfigPath(configpath)
+	}
+
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("fatal error config file: %s", err))
