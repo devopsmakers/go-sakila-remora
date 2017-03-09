@@ -39,7 +39,7 @@ prepare-tests:
 
 .PHONY: unit-tests
 unit-tests: prepare-tests
-	$(GOPATH)/bin/gotestcover -coverprofile=${COVERAGE_DIR}/unit.cov -short -covermode=atomic $(exe)/...
+	$(GOPATH)/bin/gotestcover -coverprofile=${COVERAGE_DIR}/unit.cov -short -covermode=atomic $(pkgs)
 
 .PHONY: coverage-report
 coverage-report:
