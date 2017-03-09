@@ -62,6 +62,5 @@ func (r *Remora) LoadConfig(configpaths []string) error {
 
 // Run starts running checks and exposes the HTTP endpoint
 func (r *Remora) Run() {
-
 	fmt.Printf("%v\n", r.Config.MySQL.User)
 }
