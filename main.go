@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"runtime"
 
@@ -13,7 +14,11 @@ func main() {
 	var r remora.Remora
 
 	configpaths := []string{"/etc/remora/", "$HOME/.remora", "."}
-	r.LoadConfig(configpaths)
+	err := r.LoadConfig(configpaths)
+	if err != nil {
+		fmt.Printf("%s", err)
+		os.Exit(1)
+	}
 
 	r.Run()
 

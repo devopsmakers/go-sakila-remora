@@ -2,7 +2,6 @@ package remora
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/viper"
 )
@@ -16,7 +15,7 @@ type Remora struct {
 type Config struct {
 	MySQL         Connection
 	AcceptableLag string
-	CheckEvery    string
+	CacheTTL      string
 	HTTPServe     int
 }
 
@@ -34,7 +33,10 @@ type status struct {
 // LoadConfig inits the config file and reads the default config information
 // into Remora.Config. For testability it accepts an array containing dirs to
 // search for a config file.
-func (r *Remora) LoadConfig(configpaths []string) {
+func (r *Remora) LoadConfig(configpaths []string) error {
+
+	// Explicitly reset viper - helps for testing errors
+	viper.Reset()
 
 	viper.SetConfigName("config")
 
@@ -42,22 +44,20 @@ func (r *Remora) LoadConfig(configpaths []string) {
 		viper.AddConfigPath(configpath)
 	}
 
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("fatal error config file: %s", err))
+	if err := viper.ReadInConfig(); err != nil {
+		return err
 	}
 
 	// some of our config names need aliasing to unmarshal correctly
 	viper.RegisterAlias("acceptable-lag", "AcceptableLag")
-	viper.RegisterAlias("check-every", "CheckEvery")
+	viper.RegisterAlias("cache-ttl", "CacheTTL")
 	viper.RegisterAlias("http-serve", "HTTPServe")
 
-	umerr := viper.Unmarshal(&r.Config)
-	if umerr != nil {
-		fmt.Printf("unable to decode into struct, %v", umerr)
-		os.Exit(1)
+	if err := viper.Unmarshal(&r.Config); err != nil {
+		return err
 	}
 
+	return nil
 }
 
 // Run starts running checks and exposes the HTTP endpoint
