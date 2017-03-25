@@ -1,0 +1,19 @@
+---
+
+# How long to cache the result of the healthchecks so we don't swamp our
+# service with checks if configured behind many load balancers.
+
+cache-ttl: 30s # Type: time string eg '5s', '1m' # Default: '5s'
+# The cache is purged of stale entries every 1 second so this is the lowest value
+# that will be respected by the cache.
+
+# The port to serve the http endpoint on. SSL/TLS is (currently) not supported.
+http-serve: 9258
+
+# MySQL remora configuration. SSL/TLS is (currently) not supported.
+mysql:
+  host: 'localhost'
+  port: 3306
+  user: 'root' # NEVER Use 'root' in any environment
+  pass: 'secret'
+  acceptable-lag: '5s'

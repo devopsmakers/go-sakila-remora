@@ -2,7 +2,7 @@ export GO15VENDOREXPERIMENT=1
 
 exe = github.com/devopsmakers/go-sakila-remora
 pkgs = $(shell glide novendor)
-cmd = go-sakila-remora
+cmd = remora
 
 TRAVIS_TAG ?= "0.0.0"
 BUILD_DIR=build
@@ -19,8 +19,11 @@ deps:
 	glide install
 
 .PHONY: build
-build:
-	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o $(BUILD_DIR)/$(cmd) $(exe)
+build: build-mysql
+
+.PHONY: build-mysql
+build-mysql:
+	CGO_ENABLED=0 go build -ldflags "-X main.version=$(TRAVIS_TAG) -s -w" -o $(BUILD_DIR)/$(cmd)-mysql $(exe)/cmd/$(cmd)-mysql
 
 .PHONY: run
 run: build
