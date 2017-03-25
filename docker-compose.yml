@@ -21,7 +21,7 @@ services:
     networks:
       - percona_net
     volumes:
-      - ./percona/config/master:/etc/mysql/conf.d
+      - ./test/percona/config/master:/etc/mysql/conf.d
   percona_slave:
     image: percona:latest
     container_name: percona_slave
@@ -32,7 +32,7 @@ services:
       # obviously, don't use this anywhere near production!
       MYSQL_ROOT_PASSWORD: secret
     volumes:
-      - ./percona/config/slave:/etc/mysql/conf.d
+      - ./test/percona/config/slave:/etc/mysql/conf.d
     networks:
       - percona_net
     links:
