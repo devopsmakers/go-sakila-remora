@@ -25,7 +25,5 @@ _testmain.go
 
 .DS_Store
 
-go-sakila-remora
-
 vendor/
 build/
