@@ -6,8 +6,11 @@ import (
 	"github.com/devopsmakers/go-sakila-remora/remora"
 )
 
-// HealthCheck - logic to decide whether this service is healthy
-func HealthCheck(c *remora.Config) remora.Result {
+// MySQL type for interface
+type MySQL struct{}
+
+// Check - logic to decide whether this service is healthy
+func (m MySQL) Check(c *remora.Config) remora.Result {
 	status := 1
 	body := bytes.NewBufferString("Just testing stuff out here")
 

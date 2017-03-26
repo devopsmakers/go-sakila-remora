@@ -15,8 +15,10 @@ func main() {
 	// Set this to the name of the service in the config file
 	servicename := "mysql"
 
-	// Set this to the name of the function that returns a remora.Result
-	servicecheck := mysql.HealthCheck
+	// Set this to the type you want to check
+	service := new(mysql.MySQL)
+
+	servicecheck := service.Check
 
 	jww.SetStdoutThreshold(jww.LevelInfo)
 	runtime.GOMAXPROCS(runtime.NumCPU())

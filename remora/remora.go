@@ -47,11 +47,11 @@ type HealthCheck interface {
 	Check() Result
 }
 
-type healthcheck func(*Config) Result
+type healthfunc func(*Config) Result
 
 type statusHandler struct {
 	r           *Remora
-	healthfn    healthcheck
+	healthfn    healthfunc
 	cache       *cache.Cache
 	mutex       *sync.Mutex
 	contentType string
@@ -96,7 +96,7 @@ func (r *Remora) LoadConfig(configpaths []string, servicename string) error {
 }
 
 // Serve starts running checks and exposes the HTTP endpoint
-func (r *Remora) Serve(healthfn healthcheck) error {
+func (r *Remora) Serve(healthfn healthfunc) error {
 
 	// Lets create a cache with a ttl of the configured time
 	ttl, err := time.ParseDuration(r.Config.CacheTTL)
