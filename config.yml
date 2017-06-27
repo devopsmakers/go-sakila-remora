@@ -5,7 +5,7 @@ mysql:
   user: 'root'
   pass: 'secret'
 
-acceptable-lag: '5s'
+acceptable-lag: 5
 cache-ttl: '30s'
 
 http-serve: 9258
