@@ -142,6 +142,7 @@ func (s statusHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	tmp, found := s.cache.Get("res")
 
 	if found {
+		w.Header().Set("X-Cache", "HIT")
 		resp = tmp.(Result)
 	} else {
 
@@ -149,10 +150,12 @@ func (s statusHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		defer s.mutex.Unlock()
 		tmp, found := s.cache.Get("res")
 		if found {
+			w.Header().Set("X-Cache", "HIT")
 			resp = tmp.(Result)
 		} else {
 
 			jww.INFO.Printf("%v: not in cache, getting status", r.RemoteAddr)
+			w.Header().Set("X-Cache", "MISS")
 			resp = s.healthfn(s.r.Config)
 
 			s.cache.Set("res", resp, cache.DefaultExpiration)

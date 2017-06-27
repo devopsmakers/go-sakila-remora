@@ -98,6 +98,23 @@ stop-lag:
 	docker-compose exec -T percona_slave 'mysql' -uroot -psecret -hpercona_slave -e"CHANGE MASTER TO MASTER_DELAY = 0;" -vvv
 	docker-compose exec -T percona_slave 'mysql' -uroot -psecret -hpercona_slave -e"START SLAVE;" -vvv
 
+.PHONY: stop-io
+stop-io:
+		docker-compose stop percona_master
+
+.PHONY: start-io
+start-io: stop-io
+		docker-compose start percona_master
+
+.PHONY: stop-sql
+stop-sql:
+	docker-compose exec -T percona_slave 'mysql' -uroot -psecret -hpercona_slave -e"CREATE DATABASE lag_test;"
+	docker-compose exec -T percona_master 'mysql' -uroot -psecret -hpercona_master -e"CREATE DATABASE lag_test;"
+
+.PHONY: start-sql
+start-sql:
+	docker-compose exec -T percona_slave 'mysql' -uroot -psecret -hpercona_slave -e"STOP SLAVE; SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; START SLAVE;"
+
 .PHONY: create
 create:
 	docker-compose exec -T percona_master 'mysql' -uroot -psecret -hpercona_master -e"CREATE DATABASE lag_test;"
