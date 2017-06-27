@@ -4,7 +4,7 @@
 # service with checks if configured behind many load balancers.
 
 cache-ttl: 30s # Type: time string eg '5s', '1m' # Default: '5s'
-# The cache is purged of stale entries every 1 second so this is the lowest value
+# The cache is purged of stale entries every 1 second so 1s is the lowest value
 # that will be respected by the cache.
 
 # The port to serve the http endpoint on. SSL/TLS is (currently) not supported.
