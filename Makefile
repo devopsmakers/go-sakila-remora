@@ -27,7 +27,7 @@ build-mysql:
 
 .PHONY: run
 run: build
-	build/go-sakila-remora
+	build/$(cmd)-mysql
 
 .PHONY: clean
 clean:
