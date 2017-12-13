@@ -28,7 +28,15 @@ func (m MySQL) Check(c *remora.Config) remora.Result {
 	pass := c.Service.Pass
 	host := c.Service.Host
 	port := c.Service.Port
-	lag, _ := strconv.Atoi(c.AcceptableLag)
+	maintenance := c.Maintenance
+	lag := c.AcceptableLag
+
+	if maintenance {
+		status = 2
+		body = bytes.NewBufferString("Server out for maintenance")
+		jww.WARN.Println(body.String())
+		return remora.Result{StatusCode: status, Body: *body}
+	}
 
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/", user, pass, host, port))
 	if err != nil {

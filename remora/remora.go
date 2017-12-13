@@ -7,7 +7,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fsnotify/fsnotify"
 	cache "github.com/patrickmn/go-cache"
 	jww "github.com/spf13/jwalterweatherman"
 	"github.com/spf13/viper"
@@ -21,7 +20,7 @@ type Remora struct {
 // Config basic remora configuration
 type Config struct {
 	Service       Connection
-	AcceptableLag string
+	AcceptableLag int
 	CacheTTL      string
 	HTTPServe     int
 	Maintenance   bool
@@ -71,11 +70,6 @@ func (r *Remora) LoadConfig(configpaths []string, servicename string) error {
 		viper.AddConfigPath(configpath)
 	}
 
-	viper.WatchConfig()
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		jww.WARN.Printf("Config file changed: %v", e.Name)
-	})
-
 	if err := viper.ReadInConfig(); err != nil {
 		return err
 	}
@@ -87,6 +81,9 @@ func (r *Remora) LoadConfig(configpaths []string, servicename string) error {
 	viper.RegisterAlias("cache-ttl", "CacheTTL")
 	viper.RegisterAlias("http-serve", "HTTPServe")
 	viper.RegisterAlias("maintenance-mode", "Maintenance")
+
+	viper.SetDefault("Maintenance", false)
+	viper.SetDefault("CacheTTL", "5s")
 
 	if err := viper.Unmarshal(&r.Config); err != nil {
 		return err

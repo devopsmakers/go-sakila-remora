@@ -6,5 +6,6 @@ mysql:
   pass: 'secret'
 
 acceptable-lag: 5
-
+cache-ttl: "5s"
+#maintenance-mode: true
 http-serve: 9258

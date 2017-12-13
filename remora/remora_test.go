@@ -14,8 +14,8 @@ func TestRemora_LoadConfig(t *testing.T) {
 	assert.Nil(t, err)
 
 	assert.NotNil(t, r.Config)
-	assert.Equal(t, "5s", r.Config.AcceptableLag)
-	assert.Equal(t, "30s", r.Config.CacheTTL)
+	assert.Equal(t, 5, r.Config.AcceptableLag)
+	assert.Equal(t, "5s", r.Config.CacheTTL)
 	assert.Equal(t, 9258, r.Config.HTTPServe)
 	assert.Equal(t, false, r.Config.Maintenance)
 
